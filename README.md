@@ -1,7 +1,9 @@
 # 本機docker環境建置教學
 
 ## 一.設定aams-config.yml(請參考aams-config.yml.example)
+
 ###yml說明:
+
     services:    
       autoload_projects: true
       nginx:
