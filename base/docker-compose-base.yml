@@ -59,7 +59,6 @@ services:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: mamba
       MYSQL_USER: test-again
       MYSQL_PASSWORD: test123456
     command: mysqld --max_allowed_packet=1024M
