@@ -1,0 +1,15 @@
+services:
+
+  autoload_projects: false
+# nginx
+  nginx:
+      conf_path:
+        # mamba
+        - ../mamaba/docker/nginx/conf/*.conf
+        # business
+        - ../business/nginx/conf/*.conf
+
+  projects:
+      project_path:
+        - ../mamaba
+        - ../business

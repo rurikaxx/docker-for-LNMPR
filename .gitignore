@@ -1,0 +1,11 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+nginx/html/
+nginx/log
+mysql/data
+mysql/data-ffmpeg
+mariadb/data
+log
+docker-compose.yml
+aams-config.yml
+

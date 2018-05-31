@@ -1,0 +1,79 @@
+version: "3"
+
+networks:
+  frontend:
+# 設定backend子網路
+  backend:
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: ${BACKEND_SUBNET}
+
+services:
+
+# nginx
+  nginx:
+      container_name: nginx
+      networks:
+        backend:
+          ipv4_address: ${NGINX_SERVER_IP}
+      image: shareba/nginx
+      ports:
+        - "443:443"
+        - "80:80"
+      volumes:
+        - ./nginx/ssl:/etc/ssl
+        {{NGINX_VOLUMES}}
+        {{PROJECT_VOLUMES}}
+
+  php:
+      container_name: php
+      networks:
+        backend:
+          ipv4_address: ${UPLOAD_SERVER_IP}
+      build: ./php/
+      expose:
+        - 9000
+      tty: true
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
+  redis:
+      container_name: redis
+      networks:
+          - backend
+      image: redis:3.2
+      ports:
+          - "6379:6379"
+
+# mysql
+  mysql:
+    container_name: mysql
+    networks:
+      - backend
+    ports:
+      - "3306:3306"
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: mamba
+      MYSQL_USER: test-again
+      MYSQL_PASSWORD: test123456
+    command: mysqld --max_allowed_packet=1024M
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+
+# phpmyadmin for mysql
+  phpmyadmin_mysql:
+    container_name: phpmyadmin
+    networks:
+      - frontend
+      - backend
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
