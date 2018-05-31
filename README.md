@@ -2,15 +2,14 @@
 
 ## 一.設定aams-config.yml(請參考aams-config.yml.example)
 
-###yml說明:
+yml說明:
 
     services:    
       autoload_projects: true
       nginx:
           conf_path:
             - ../mamaba/docker/nginx/conf/*.conf
-            - ../business/nginx/conf/*.conf
-    
+            - ../business/nginx/conf/*.conf    
       projects:
           project_path:
             - ../mamaba
