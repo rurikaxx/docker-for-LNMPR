@@ -6,9 +6,19 @@ if(PHP_SAPI != 'cli')
 
 try
 {
+    if( ! file_exists( __DIR__ . '/../aams-config.yml' ) )
+    {
+        throw new Exception(__DIR__ . '/aams-config.yml 不存在');
+    }
+
     require_once "spyc.php";
 
-    $yaml = Spyc::YAMLLoad(__DIR__ . '/../aams-config.yml');
+    $yaml = Spyc::YAMLLoad( __DIR__ . '/../aams-config.yml' );
+
+    if( ! $yaml )
+    {
+        throw new Exception('aams-config.yml 內容錯誤');
+    }
 
     $projectVolumes = '';
 
@@ -17,7 +27,7 @@ try
     $ymlContent = file_get_contents(__DIR__ . '/docker-compose-base.yml');
 
     // auto mount project directory
-    if( $yaml['services']['autoload_projects'] )
+    if( isset($yaml['services']['autoload_projects']) && $yaml['services']['autoload_projects'] )
     {
         $dirs = array_filter(glob(__DIR__ . '/../../*',GLOB_MARK), 'is_dir');
 
@@ -61,9 +71,9 @@ try
                 $nginxVolumes = $nginxVolumes . ( $nginxVolumes == ""? "- ": "        - ") . $conf . ':' . '/etc/nginx/conf.d/' . basename($conf) . "\n";
             }
         }
-
-        $ymlContent = str_replace( '{{NGINX_VOLUMES}}', $nginxVolumes, $ymlContent);
     }
+
+    $ymlContent = str_replace( '{{NGINX_VOLUMES}}', $nginxVolumes, $ymlContent);
 
     file_put_contents( __DIR__ . '/../docker-compose.yml', $ymlContent);
 

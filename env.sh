@@ -2,7 +2,12 @@
 
 while :
 do
-    php -f ./base/create_yaml.php
+    response=`php -f ./base/create_yaml.php`
+
+#    if [ "$response" != "" ]; then
+#        echo '錯誤: ' . $response
+#        exit
+#    fi
 
     # 選擇要啟動的系統
     echo "Choose the containers you want to start:"
