@@ -60,6 +60,15 @@ do
                 docker rm -f $input2
             fi
             ;;
+        r)
+            # 關閉指定的服務
+            if [  "$input2" == "" ]; then
+                echo "which service do you want to restart?"
+            else
+                docker rm -f $input2
+                docker-compose up -d --build $input2
+            fi
+            ;;
         l)
             # 查看目前的 container
             docker ps -a
