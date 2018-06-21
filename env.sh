@@ -19,6 +19,7 @@ do
     echo "----------------------------------------"
     echo "s. Start specific server"
     echo "d. Shutdown specific server"
+    echo "r. Restart specific server"
     echo "  - php"
     echo "  - pkg-php"
     echo "  - nginx"
