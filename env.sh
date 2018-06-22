@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# 切換到 evn.sh 檔案目錄底下
+BASEDIR=$(dirname "$0")
+cd "$BASEDIR"
+
+clear
+
 while :
 do
     response=`php -f ./base/create_yaml.php`
@@ -76,12 +82,12 @@ do
             ;;
         c)
             # 關閉透過 docker-compose 產生的 container
-#            docker-compose down
-            docker rm -f php
-            docker rm -f nginx
-            docker rm -f mysql
-            docker rm -f phpmyadmin_mysql
-            docker rm -f redis
+            docker-compose down
+#            docker rm -f php
+#            docker rm -f nginx
+#            docker rm -f mysql
+#            docker rm -f phpmyadmin_mysql
+#            docker rm -f redis
             ;;
         *)
             # 離開程序
