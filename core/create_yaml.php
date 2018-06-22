@@ -4,16 +4,18 @@ if(PHP_SAPI != 'cli')
     exit;
 }
 
+define( 'ROOT_PATH', __DIR__ . '/..');
+
 try
 {
-    if( ! file_exists( __DIR__ . '/../aams-config.yml' ) )
+    if( ! file_exists( ROOT_PATH . '/aams-config.yml' ) )
     {
-        throw new Exception(__DIR__ . '/aams-config.yml 不存在');
+        throw new Exception(ROOT_PATH . '/aams-config.yml 不存在');
     }
 
     require_once "spyc.php";
 
-    $yaml = Spyc::YAMLLoad( __DIR__ . '/../aams-config.yml' );
+    $yaml = Spyc::YAMLLoad( ROOT_PATH . '/aams-config.yml' );
 
     if( ! $yaml )
     {
@@ -24,12 +26,12 @@ try
 
     $nginxVolumes = '';
 
-    $ymlContent = file_get_contents(__DIR__ . '/docker-compose-base.yml');
+    $ymlContent = file_get_contents( ROOT_PATH . '/template/docker-compose-template.yml' );
 
     // auto mount project directory
     if( isset($yaml['services']['autoload_projects']) && $yaml['services']['autoload_projects'] )
     {
-        $dirs = array_filter(glob(__DIR__ . '/../../*',GLOB_MARK), 'is_dir');
+        $dirs = array_filter(glob(ROOT_PATH . '/../*',GLOB_MARK), 'is_dir');
 
         foreach( $dirs as $projectPath )
         {
@@ -64,7 +66,7 @@ try
 
         foreach( $nginxConfRule as $confRule )
         {
-            $confs = glob( __DIR__ . '/../' . $confRule);
+            $confs = glob( ROOT_PATH . '/' . $confRule);
 
             foreach( $confs as $conf )
             {
@@ -75,7 +77,7 @@ try
 
     $ymlContent = str_replace( '{{NGINX_VOLUMES}}', $nginxVolumes, $ymlContent);
 
-    file_put_contents( __DIR__ . '/../docker-compose.yml', $ymlContent);
+    file_put_contents( ROOT_PATH . '/docker-compose.yml', $ymlContent);
 
 }
 catch( \Exception $e )

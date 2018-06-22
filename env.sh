@@ -8,7 +8,7 @@ clear
 
 while :
 do
-    response=`php -f ./base/create_yaml.php`
+    response=`php -f ./core/create_yaml.php`
 
     if [ "$response" != "" ]; then
         echo '錯誤: ' . $response
