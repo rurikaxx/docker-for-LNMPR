@@ -12,8 +12,8 @@ yml說明:
             - ../business/nginx/conf/*.conf    
       projects:
           project_path:
-            - ../mamaba
-            - ../business
+            - ../mamaba:/var/www/html/mamaba
+            - ../business:/var/www/html/business
    
 autoload_projects : 是否自動mount pjojects目錄
 

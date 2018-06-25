@@ -51,9 +51,11 @@ try
     {
         foreach( $yaml['services']['projects']['project_path'] as $projectPath )
         {
-            $destination = basename($projectPath);
+//            $destination = basename($projectPath);
+//
+//            $projectVolumes = $projectVolumes . ( $projectVolumes == ""? "- ": "        - ") . $projectPath . ':' . '/var/www/html/' . $destination . "\n";
 
-            $projectVolumes = $projectVolumes . ( $projectVolumes == ""? "- ": "        - ") . $projectPath . ':' . '/var/www/html/' . $destination . "\n";
+            $projectVolumes = $projectVolumes . ( $projectVolumes == ""? "- ": "        - ") . $projectPath . "\n";
         }
     }
 
