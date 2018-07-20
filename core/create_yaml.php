@@ -68,7 +68,14 @@ try
 
         foreach( $nginxConfRule as $confRule )
         {
-            $confs = glob( ROOT_PATH . '/' . $confRule);
+            if( substr( $confRule, 0, 1) === "/" )
+            {
+                $confs = $confRule;
+            }
+            else
+            {
+                $confs = glob( ROOT_PATH . '/' . $confRule);
+            }
 
             foreach( $confs as $conf )
             {
