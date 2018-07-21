@@ -70,7 +70,7 @@ try
         {
             if( substr( $confRule, 0, 1) === "/" )
             {
-                $confs = $confRule;
+                $confs = glob($confRule);
             }
             else
             {
