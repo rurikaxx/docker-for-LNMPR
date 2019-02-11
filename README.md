@@ -1,6 +1,6 @@
 # 本機docker環境建置教學
 
-## 一.設定aams-config.yml(請參考aams-config.yml.example)
+## 一.設定config.yml(請參考config.yml.example)
 
 yml說明:
 
@@ -8,14 +8,14 @@ yml說明:
       autoload_projects: true
       nginx:
           conf_path:
-            - ../mamaba/docker/nginx/conf/*.conf
-            - ../business/nginx/conf/*.conf    
+            - ../your_projects_1/nginx/conf/*.conf
+            - ../your_projects_2/nginx/conf/*.conf    
       projects:
           project_path:
-            - ../mamaba:/var/www/html/mamaba
-            - ../business:/var/www/html/business
+            - ../your_project_app_1:/var/www/html/your_project_app_1
+            - ../your_project_app_2:/var/www/html/your_project_app_2
    
-autoload_projects : 是否自動mount pjojects目錄
+autoload_projects : 是否自動mount projects目錄
 
 nginx - conf_path : 指定nginx設定檔位置,會將指定檔案mount至nginx container的/etc/nginx/con.f/目錄下
 

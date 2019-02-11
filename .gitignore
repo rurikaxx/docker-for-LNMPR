@@ -8,5 +8,5 @@ mysql/data-ffmpeg
 mariadb/data
 log
 docker-compose.yml
-aams-config.yml
+config.yml
 

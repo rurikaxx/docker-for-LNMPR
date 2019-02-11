@@ -8,18 +8,18 @@ define( 'ROOT_PATH', __DIR__ . '/..');
 
 try
 {
-    if( ! file_exists( ROOT_PATH . '/aams-config.yml' ) )
+    if( ! file_exists( ROOT_PATH . '/config.yml' ) )
     {
-        throw new Exception(ROOT_PATH . '/aams-config.yml 不存在');
+        throw new Exception(ROOT_PATH . '/config.yml 不存在');
     }
 
     require_once "spyc.php";
 
-    $yaml = Spyc::YAMLLoad( ROOT_PATH . '/aams-config.yml' );
+    $yaml = Spyc::YAMLLoad( ROOT_PATH . '/config.yml' );
 
     if( ! $yaml )
     {
-        throw new Exception('aams-config.yml 內容錯誤');
+        throw new Exception('config.yml 內容錯誤');
     }
 
     $projectVolumes = '';

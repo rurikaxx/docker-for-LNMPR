@@ -1,0 +1,14 @@
+services:
+
+  autoload_projects: false
+# nginx
+  nginx:
+      conf_path:
+        # nginx configs of your projects
+        - ../your_projects_1/nginx/conf/*.conf
+        - ../your_projects_2/nginx/conf/*.conf
+
+  projects:
+      project_path:
+        - ../your_project_app_1:/var/www/html/your_project_app_1
+        - ../your_project_app_2:/var/www/html/your_project_app_2
