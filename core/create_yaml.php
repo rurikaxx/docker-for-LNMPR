@@ -55,7 +55,7 @@ try
 //
 //            $projectVolumes = $projectVolumes . ( $projectVolumes == ""? "- ": "        - ") . $projectPath . ':' . '/var/www/html/' . $destination . "\n";
 
-            $projectVolumes = $projectVolumes . ( $projectVolumes == ""? "- ": "        - ") . $projectPath . "\n";
+            $projectVolumes = $projectVolumes . ( $projectVolumes == ""? "- ": "        - ") . $projectPath . ':cached' . "\n";
         }
     }
 
@@ -79,7 +79,7 @@ try
 
             foreach( $confs as $conf )
             {
-                $nginxVolumes = $nginxVolumes . ( $nginxVolumes == ""? "- ": "        - ") . $conf . ':' . '/etc/nginx/conf.d/' . basename($conf) . "\n";
+                $nginxVolumes = $nginxVolumes . ( $nginxVolumes == ""? "- ": "        - ") . $conf . ':' . '/etc/nginx/conf.d/' . basename($conf) . ':cached' . "\n";
             }
         }
     }
