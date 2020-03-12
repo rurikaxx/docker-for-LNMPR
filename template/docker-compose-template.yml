@@ -19,6 +19,7 @@ services:
         backend:
           ipv4_address: ${NGINX_SERVER_IP}
       image: shareba/nginx
+#      build: ./nginx/
       ports:
         - "443:443"
         - "80:80"
@@ -32,11 +33,14 @@ services:
       networks:
         backend:
           ipv4_address: ${UPLOAD_SERVER_IP}
-      build: ./php/
+#      build: ./php/
+#      build: ./php-fpm/
+      image: shareba/php:7.1
       expose:
         - 9000
       tty: true
       volumes:
+        - ./php-fpm/php7.2.ini:/usr/local/etc/php/php.ini
         {{PROJECT_VOLUMES}}
       extra_hosts:
         - "${HOST_PUB}:${NGINX_SERVER_IP}"
@@ -76,3 +80,30 @@ services:
       - "8080:80"
     environment:
       PMA_HOST: mysql
+  redis-exporter:
+    container_name: redis_exporter_1
+    image: oliver006/redis_exporter:alpine
+    networks:
+      - backend
+    command: "-redis.addr=redis://redis:6379"
+    expose:
+      - "9121"
+    ports:
+      - "9121:9121"
+  prometheus:
+    image: prom/prometheus:v2.0.0
+    container_name: prometheus_1
+    networks:
+      - backend
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - '9090:9090'
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
