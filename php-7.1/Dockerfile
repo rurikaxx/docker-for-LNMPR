@@ -39,6 +39,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 && php -r "unlink('composer-setup.php');" \
 && mv ./composer.phar /usr/local/bin/composer
 
+RUN mkdir -p /usr/share/man/man1
+
 #RUN yum install libevent2
 #RUN yum install libevent-devel
 #RUN pecl install event

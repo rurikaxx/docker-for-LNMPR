@@ -38,21 +38,20 @@ services:
         - 9000
       tty: true
       volumes:
-        - ./php-fpm/php7.2.ini:/usr/local/etc/php/php.ini
         {{PROJECT_VOLUMES}}
       extra_hosts:
         - "${HOST_PUB}:${NGINX_SERVER_IP}"
-  php:
-      container_name: php-7.2.5
+
+  php-7.3:
+      container_name: php-7.3
       networks:
         backend:
-          ipv4_address: ${UPLOAD_SERVER_IP}
-      build: ./php-7.2.5/
+#          ipv4_address: ${UPLOAD_SERVER_IP}
+      build: ./php-7.3/
       expose:
         - 9000
       tty: true
       volumes:
-        - ./php-fpm/php7.2.ini:/usr/local/etc/php/php.ini
         {{PROJECT_VOLUMES}}
       extra_hosts:
         - "${HOST_PUB}:${NGINX_SERVER_IP}"
