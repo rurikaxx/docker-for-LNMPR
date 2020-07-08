@@ -43,6 +43,8 @@ do
             docker-compose up -d --build php
             # 啟動 php-7.3
             docker-compose up -d --build php-7.3
+            # 啟動 php-7.2
+            docker-compose up -d --build php-7.2
             # 啟動 nginx
             docker-compose up -d --build nginx
             # 啟動 mysql

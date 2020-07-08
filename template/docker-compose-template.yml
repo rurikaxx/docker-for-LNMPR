@@ -56,6 +56,20 @@ services:
       extra_hosts:
         - "${HOST_PUB}:${NGINX_SERVER_IP}"
 
+  php-7.2:
+      container_name: php-7.2
+      networks:
+        backend:
+#          ipv4_address: ${UPLOAD_SERVER_IP}
+      build: ./php-7.2/
+      expose:
+        - 9000
+      tty: true
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
   redis:
       container_name: redis
       networks:
