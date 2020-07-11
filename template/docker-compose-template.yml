@@ -6,9 +6,9 @@ networks:
   backend:
     ipam:
       driver: default
-#      config:
-#      -
-#        subnet: ${BACKEND_SUBNET}
+      config:
+      -
+        subnet: ${BACKEND_SUBNET}
 
 services:
 
@@ -17,7 +17,7 @@ services:
       container_name: nginx
       networks:
         backend:
-#          ipv4_address: ${NGINX_SERVER_IP}
+          ipv4_address: ${NGINX_SERVER_IP}
       image: shareba/nginx
 #      build: ./nginx/
       ports:
@@ -39,8 +39,8 @@ services:
       tty: true
       volumes:
         {{PROJECT_VOLUMES}}
-#      extra_hosts:
-#        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
 
   php-7.3:
       container_name: php-7.3

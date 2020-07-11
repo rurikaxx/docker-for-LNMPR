@@ -41,6 +41,19 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 RUN mkdir -p /usr/share/man/man1
 
+# 翼手龍
+RUN apt-get update
+RUN apt -y upgrade
+RUN apt-get install unzip
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get -y install nodejs make gcc g++
+RUN mkdir -p /srv/daemon /srv/daemon-data
+WORKDIR "/srv/daemon"
+RUN curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.13/daemon.tar.gz | tar --strip-components=1 -xzv
+RUN npm install --only=production --no-audit --unsafe-perm
+COPY core.json /srv/daemon/config/core.json
+RUN apt-get install -y vim
+
 #RUN yum install libevent2
 #RUN yum install libevent-devel
 #RUN pecl install event
