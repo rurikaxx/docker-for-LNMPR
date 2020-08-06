@@ -41,6 +41,13 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 RUN mkdir -p /usr/share/man/man1
 
+COPY ./php.ini /usr/local/etc/php/conf.d
+
+RUN apt-get update && apt-get install -y \
+    libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+	&& docker-php-ext-enable imagick
+
 #RUN yum install libevent2
 #RUN yum install libevent-devel
 #RUN pecl install event
