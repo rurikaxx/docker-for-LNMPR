@@ -40,7 +40,7 @@ do
     case $input in
         1)
             # 啟動 php
-            docker-compose up -d --build php
+#            docker-compose up -d --build php
             # 啟動 php-7.3
             docker-compose up -d --build php-7.3
             # 啟動 php-7.2
@@ -49,8 +49,11 @@ do
             docker-compose up -d --build nginx
             # 啟動 mysql
             docker-compose up -d --build mysql
+
+            # 啟動 mysql
+            docker-compose up -d --build mysql-8.0
             # 啟動 phpmyadmin
-            docker-compose up -d --build phpmyadmin_mysql
+#            docker-compose up -d --build phpmyadmin_mysql
             # 啟動 redis
             docker-compose up -d --build redis
 

@@ -48,6 +48,10 @@ RUN apt-get update && apt-get install -y \
     && pecl install imagick \
 	&& docker-php-ext-enable imagick
 
+RUN apt install -y vim
+
 #RUN yum install libevent2
 #RUN yum install libevent-devel
 #RUN pecl install event
+
+#RUN echo "pm.status_path = /php_fpm_status" >> /usr/local/etc/php-fpm.d/www.conf
