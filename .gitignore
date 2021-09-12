@@ -4,7 +4,6 @@
 nginx/html/
 nginx/log
 mysql/data
-mysql-8.0
 mysql/rw-data
 mysql/data-ffmpeg
 mariadb/data

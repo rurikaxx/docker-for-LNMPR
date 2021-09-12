@@ -50,6 +50,20 @@ services:
       build: ./php-7.3/
       expose:
         - 9000
+      tty: true
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
+  php-8.0:
+      container_name: php-8.0
+      networks:
+        backend:
+#          ipv4_address: ${UPLOAD_SERVER_IP}
+      build: ./php-8.0/
+      expose:
+        - 9000
         - 8282
         - 1236
         - 55151
@@ -121,7 +135,8 @@ services:
       MYSQL_PASSWORD: test123456
     command: mysqld --max_allowed_packet=1024M
     volumes:
-      - ./db/mysql-8.0/data:/var/lib/mysql
+#      - ./db/mysql-8.0/data:/var/lib/mysql
+      - ./mysql/data-8.0:/var/lib/mysql
 
 # phpmyadmin for mysql
   phpmyadmin_mysql:

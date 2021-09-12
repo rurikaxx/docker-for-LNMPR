@@ -41,6 +41,8 @@ do
         1)
             # 啟動 php
 #            docker-compose up -d --build php
+            # 啟動 php-8.0
+            docker-compose up -d --build php-8.0
             # 啟動 php-7.3
             docker-compose up -d --build php-7.3
             # 啟動 php-7.2
