@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 
 networks:
   frontend:
@@ -51,6 +51,36 @@ services:
       expose:
         - 9000
       tty: true
+      cap_add:
+        - NET_ADMIN
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
+  php-7.4:
+      container_name: php-7.4
+      networks:
+        backend:
+#          ipv4_address: ${UPLOAD_SERVER_IP}
+      build: ./php-7.4/
+      expose:
+        - 9000
+      tty: true
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
+  php-8.1:
+      container_name: php-8.1
+      networks:
+        backend:
+#          ipv4_address: ${UPLOAD_SERVER_IP}
+      build: ./php-8.1/
+      expose:
+        - 9000
+      tty: true
       volumes:
         {{PROJECT_VOLUMES}}
       extra_hosts:
@@ -64,15 +94,15 @@ services:
       build: ./php-8.0/
       expose:
         - 9000
-        - 8282
-        - 1236
-        - 55151
-        - 2300
-      ports:
-        - "8282:8282"
-        - "1236:1236"
-        - "55151:55151"
-        - "2300:2300"
+#        - 8282
+#        - 1236
+#        - 55151
+#        - 2300
+#      ports:
+#        - "8282:8282"
+#        - "1236:1236"
+#        - "55151:55151"
+#        - "2300:2300"
       tty: true
       volumes:
         {{PROJECT_VOLUMES}}
@@ -114,7 +144,17 @@ services:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_USER: test-again
       MYSQL_PASSWORD: test123456
-    command: mysqld --max_allowed_packet=1024M
+    command: # mysqld --performance-schema-hosts-size=100
+    command:
+        - "mysqld"
+        - "--performance-schema-hosts-size=100"
+        - "--performance-schema-accounts-size=100"
+        - "--max_allowed_packet=1024M"
+        - "--performance_schema_max_cond_instances=1360"
+        - "--performance_schema_max_file_instances=2500"
+        - "--performance_schema_max_mutex_instances=5648"
+        - "--performance_schema_max_rwlock_instances=3074"
+        - "--performance_schema_max_socket_instances=230"
     volumes:
       - ./mysql/data:/var/lib/mysql
 
@@ -174,5 +214,13 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+    networks:
+      - backend
+
+  elasticsearch:
+    image: elasticsearch:6.8.13
+    expose:
+      - 9200
+      - 9300
     networks:
       - backend

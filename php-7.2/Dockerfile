@@ -10,6 +10,12 @@ COPY ./composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y vim
 
+RUN apt-get -y install libmcrypt-dev;
+
+RUN pecl install mcrypt-1.0.1 \
+    && docker-php-ext-enable mcrypt;
+
+
 #COPY ./php.ini /usr/local/etc/php/php.ini
 
 #vim +/pm.status_path www.conf

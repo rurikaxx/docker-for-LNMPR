@@ -40,24 +40,39 @@ do
     case $input in
         1)
             # 啟動 php
-#            docker-compose up -d --build php
+            docker-compose up -d --build php
+            # 啟動 php-8.1
+            # docker-compose up -d --build php-8.1
+            docker-compose up -d php-8.1
             # 啟動 php-8.0
-            docker-compose up -d --build php-8.0
+            # docker-compose up -d --build php-8.0
+            docker-compose up -d php-8.0
+            # 啟動 php-7.4
+            docker-compose up -d --build php-7.4
+#            docker-compose up -d php-7.4
             # 啟動 php-7.3
-            docker-compose up -d --build php-7.3
+            # docker-compose up -d --build php-7.3
+            docker-compose up -d php-7.3
             # 啟動 php-7.2
-            docker-compose up -d --build php-7.2
+            # docker-compose up -d --build php-7.2
+            docker-compose up -d php-7.2
             # 啟動 nginx
-            docker-compose up -d --build nginx
+            # docker-compose up -d --build nginx
+            docker-compose up -d nginx
             # 啟動 mysql
-            docker-compose up -d --build mysql
+            # docker-compose up -d --build mysql
+            docker-compose up -d mysql
 
             # 啟動 mysql
-            docker-compose up -d --build mysql-8.0
+            # docker-compose up -d --build mysql-8.0
+            docker-compose up -d mysql-8.0
             # 啟動 phpmyadmin
 #            docker-compose up -d --build phpmyadmin_mysql
             # 啟動 redis
-            docker-compose up -d --build redis
+            # docker-compose up -d --build redis
+            docker-compose up -d redis
+
+            docker-compose up -d elasticsearch
 
             ;;
         s)
