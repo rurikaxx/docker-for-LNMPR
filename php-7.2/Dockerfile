@@ -8,7 +8,7 @@ FROM crunchgeek/php-fpm:7.2
 
 COPY ./composer /usr/local/bin/composer
 
-RUN apt-get update && apt-get install -y vim
+#RUN apt-get update && apt-get install -y vim
 
 RUN apt-get -y install libmcrypt-dev;
 

@@ -40,7 +40,13 @@ do
     case $input in
         1)
             # 啟動 php
-            docker-compose up -d --build php
+            docker-compose up -d php
+            # 啟動 php-8.4
+            docker-compose up -d php-8.4
+            # 啟動 php-8.3
+            docker-compose up -d php-8.3
+            # 啟動 php-8.2
+            docker-compose up -d php-8.2
             # 啟動 php-8.1
             # docker-compose up -d --build php-8.1
             docker-compose up -d php-8.1
@@ -48,7 +54,7 @@ do
             # docker-compose up -d --build php-8.0
             docker-compose up -d php-8.0
             # 啟動 php-7.4
-            docker-compose up -d --build php-7.4
+            docker-compose up -d php-7.4
 #            docker-compose up -d php-7.4
             # 啟動 php-7.3
             # docker-compose up -d --build php-7.3

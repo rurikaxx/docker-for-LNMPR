@@ -18,8 +18,8 @@ services:
       networks:
         backend:
           ipv4_address: ${NGINX_SERVER_IP}
-      image: shareba/nginx
-#      build: ./nginx/
+#      image: shareba/nginx
+      build: ./nginx/
       ports:
         - "443:443"
         - "80:80"
@@ -51,6 +51,9 @@ services:
       expose:
         - 9000
       tty: true
+      env_file:
+        - test_1.env
+        - test_2.env
       cap_add:
         - NET_ADMIN
       volumes:
@@ -78,6 +81,47 @@ services:
         backend:
 #          ipv4_address: ${UPLOAD_SERVER_IP}
       build: ./php-8.1/
+      ports:
+        - "5173:5173"
+      expose:
+        - 9000
+      tty: true
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
+  php-8.2:
+      container_name: php-8.2
+      networks:
+        backend:
+      build: ./php-8.2/
+      expose:
+        - 9000
+      tty: true
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
+  php-8.3:
+      container_name: php-8.3
+      networks:
+        backend:
+      build: ./php-8.3/
+      expose:
+        - 9000
+      tty: true
+      volumes:
+        {{PROJECT_VOLUMES}}
+      extra_hosts:
+        - "${HOST_PUB}:${NGINX_SERVER_IP}"
+
+  php-8.4:
+      container_name: php-8.4
+      networks:
+        backend:
+      build: ./php-8.4/
       expose:
         - 9000
       tty: true
@@ -128,7 +172,7 @@ services:
       container_name: redis
       networks:
           - backend
-      image: redis:3.2
+      image: redis:7.0
       ports:
           - "6379:6379"
 
@@ -145,7 +189,7 @@ services:
       MYSQL_USER: test-again
       MYSQL_PASSWORD: test123456
     command: # mysqld --performance-schema-hosts-size=100
-    command:
+#    command:
         - "mysqld"
         - "--performance-schema-hosts-size=100"
         - "--performance-schema-accounts-size=100"
@@ -155,8 +199,13 @@ services:
         - "--performance_schema_max_mutex_instances=5648"
         - "--performance_schema_max_rwlock_instances=3074"
         - "--performance_schema_max_socket_instances=230"
+#       開啟binlog, 必須設定server-id !
+        - "--server-id=1"
+#        - "--log-bin=bin.log"
+#        - "--log=query.log"
     volumes:
       - ./mysql/data:/var/lib/mysql
+#      - ./mysql/conf:/etc/mysql/conf.d
 
   mysql-8.0:
     container_name: mysql-8.0
@@ -218,7 +267,7 @@ services:
       - backend
 
   elasticsearch:
-    image: elasticsearch:6.8.13
+    image: elasticsearch:7.17.14
     expose:
       - 9200
       - 9300

@@ -1,18 +1,12 @@
-FROM laradock/php-fpm:latest-8.1
+FROM laradock/php-fpm:latest-8.3
 
-#COPY ./composer /usr/local/bin/composer
+COPY ./composer /usr/local/bin/composer
 
 RUN apt-get update && apt-get install -y vim
 
 RUN apt-get install -y libzip-dev && \
     docker-php-ext-configure zip && \
     docker-php-ext-install zip
-
-#RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-#    php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
-#    php composer-setup.php && \
-#    php -r "unlink('composer-setup.php');" && \
-#    mv composer.phar /usr/local/bin/composer
 
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -50,7 +44,7 @@ RUN docker-php-ext-configure sockets \
 
 SHELL ["/bin/bash", "-c"]
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && source ~/.bashrc && nvm install 18.15.0
+#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && source ~/.bashrc && nvm install 18.15.0
 
 # RUN nvm install 18.15.0
 
